@@ -1,0 +1,53 @@
+exports.meta = function () {
+  return {
+    user: {
+      //_id:null,
+      username: null,
+      email: null,
+      fullname: { first: null, last: null },
+      password: null,
+      events: [],
+      action_items: [],
+      timestamp: new Date().getTime()
+    },
+    stickey_note: {
+      title: null,
+      description: null,
+      timestamp: new Date().getTime()
+    },
+    event: {
+      //_id:null,
+      name: null,
+      description: null,
+      date: null,
+      users: [],
+      location: null,
+      event_nature: null,
+      todo_lists: [],
+      stickey_notes: [],
+      administrators: [],
+      suervyes: [],
+      budget: null,
+      timestamp: new Date().getTime()
+    },
+    action_item: {
+      aid: null,
+      description: null,
+      have: null,
+      needed: null,
+      unit: null,
+      cost: null,
+      focals: [],
+      user_id: null,
+      timestamp: new Date().getTime()
+    },
+    todo_list: {
+      title:null,
+      description: null,
+      stickey_notes: [],
+      action_items: [],
+      focals: [],
+      timestamp: new Date().getTime()
+    }
+  }
+}
