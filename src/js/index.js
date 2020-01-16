@@ -12,7 +12,8 @@ const response = function (res) {
     if (!responseSent) {
       responseSent = true;
       res.statusCode = code;
-      res.send(msg)
+      console.log(msg)
+      res.send({msg})
     }
   }
 };
@@ -151,6 +152,7 @@ app.post('/users/login', async function (req, res) {
     res.setHeader('Content-type', 'application/json; charset=utf-8');
     let respond = response(res);
     const { username, email, password } = req.body;
+
     let token = await db.usersApi.login(username, email, password, respond)
     respond(200, token);
   }
@@ -255,7 +257,7 @@ app.post('/event/add/action_item/row', async function (req, res) {
 // app.post('/event/add/stickeyNote',async function (req, res) {
 //   let respond = response(res);
 //   const txt = req.body.message;
-//   const objectId = req.body.objectId;// todo get it from the event id 
+//   const objectId = req.body.objectId;// todo get it from the event id
 //   const title = req.body.title;
 //   db.eventsApi.addStickeyNote(objectId,title,txt);
 //   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
@@ -266,7 +268,7 @@ app.post('/event/add/action_item/row', async function (req, res) {
 app.post('/event/remove/stickeyNote', async function (req, res) {
   let respond = response(res);
   const stickeyId = req.body.stickey_note;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   db.removeStickeyNoteFromEvent(stickeyId, eventId);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
@@ -278,7 +280,7 @@ app.post('/event/add/user', async function (req, res) {
   let respond = response(res);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
   const userId = req.body.user_id;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   await db.addUserToEvent(eventId, userId, respond);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   respond(200, 'success')
@@ -288,7 +290,7 @@ app.post('/event/remove/user', async function (req, res) {
   let respond = response(res);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
   const userId = req.body.user_id;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   await db.removeUserFromEvent(eventId, userId, respond);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   respond(200, 'success')
@@ -298,7 +300,7 @@ app.post('/event/edit', async function (req, res) {
   let respond = response(res);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
   const title = req.body.title;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   const value = req.body.value;
   await db.updateEventField(title, eventId, value);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
@@ -310,7 +312,7 @@ app.post('/event/edit', async function (req, res) {
 app.post('/event/add/administrator', function (req, res) {
   let respond = response(res);
   const userId = req.body.user_id;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   db.addAdminToEvent(userId, eventId);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
@@ -320,7 +322,7 @@ app.post('/event/add/administrator', function (req, res) {
 app.post('/event/remove/administrator', function (req, res) {
   let respond = response(res);
   const userId = req.body.user_id;
-  const eventId = req.body.event_id;// todo get it from the event id 
+  const eventId = req.body.event_id;// todo get it from the event id
   db.removeAdminFromEvent(userId, eventId);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   res.setHeader('Content-type', 'application/json; charset=utf-8');
